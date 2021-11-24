@@ -1,5 +1,7 @@
 import fs from 'fs-extra';
 import meow from 'meow';
+import { generateTextBlock } from './parsers/textBlock.js'
+import { generateImageBlock } from './parsers/imageBlock.js'
 
 const TEMPLATE_REGEX = /(static _template())([\s\S]+?)(\n  })/g;
 const RETURN_BLK_REGEX = /(return {)([\s\S]+?)(\n    })/g;
@@ -29,41 +31,6 @@ const cli = meow(`
 		}
 	}
 });
-
-const generateTextBlock = ({ name, text, x, y, mountX = 1, mountY = 1 }) => {
-  const textureName = `${name}Texture`;
-
-  const _tmp = `
-    const ${textureName} = (this.${textureName} = new TextTexture(stage));
-    ${textureName}.fontSize = FontFaceLightSize.P16;
-    ${textureName}.fontStyle = FontWeight.LIGHT;
-    ${textureName}.renderer = TextRenderer.Sensible;
-    ${textureName}.text = {
-      text: "${text.text}"
-    };
-
-    const ${name} = (this.${name} = new Lightning.Element(stage));
-    ${name}.texture = ${name}Texture;
-    ${name}.mountX = ${mountX};
-    ${name}.mountY = ${mountY};
-    ${name}.x = ${x};
-    ${name}.y = ${y};`;
-
-  newAddChildIds.push(name);
-  newElements.push(_tmp);
-}
-
-const generateImageBlock = ({ name, src, x = 0, y = 0, alpha = 1, w, h, mountX = 1, mountY = 1 }) => {
-  const _tmpImg = `
-    const ${name} = (this.${name} = new Lightning.Element(stage));
-    ${name}.on('txLoaded', () => console.log(${name}, ' loaded'));
-    ${name}.w = ${w};
-    ${name}.h = ${h};
-    ${name}.alpha = ${alpha};`;
-
-  newAddChildIds.push(name);
-  newElements.push(_tmpImg);
-}
 
 const insertElements = () => newElements.join('\n').trim();
 const insertAddChild = () => newAddChildIds.map((elem, index) => index === 0 ? `this.childList.add(${elem})` : `    this.childList.add(${elem})` ).join('\n');
@@ -125,11 +92,11 @@ const parseTemplate = () => {
 
     switch(element.type) {
       case 'Text':
-        generateTextBlock(params);
+        generateTextBlock(newElements, newAddChildIds, params);
         break;
 
       case 'Image':
-        generateImageBlock(params);
+        generateImageBlock(newElements, newAddChildIds, params);
         break;
     }
   }
