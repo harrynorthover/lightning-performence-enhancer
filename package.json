@@ -4,7 +4,7 @@
   "description": "Translates Lightning templates to inline code.",
   "main": "lng-temp-parser.js",
   "scripts": {
-    "start": "node lng-temp-parser.js './LightningTemplateDemo/src/App.js' app.parsed.ts"
+    "start": "node lng-temp-parser.js ./LightningTemplateDemo/src/App.js ./LightningTemplateDemo/src/App.parsed.ts"
   },
   "type": "module",
   "repository": {

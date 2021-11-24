@@ -34,7 +34,7 @@ const generateTextBlock = ({ name, text, x, y, mountX = 1, mountY = 1 }) => {
   const textureName = `${name}Texture`;
 
   const _tmp = `
-    const ${textureName} = new TextTexture(stage);
+    const ${textureName} = (this.${textureName} = new TextTexture(stage));
     ${textureName}.fontSize = FontFaceLightSize.P16;
     ${textureName}.fontStyle = FontWeight.LIGHT;
     ${textureName}.renderer = TextRenderer.Sensible;
@@ -42,7 +42,7 @@ const generateTextBlock = ({ name, text, x, y, mountX = 1, mountY = 1 }) => {
       text: "${text.text}"
     };
 
-    const ${name} = new Lightning.Element(stage);
+    const ${name} = (this.${name} = new Lightning.Element(stage));
     ${name}.texture = ${name}Texture;
     ${name}.mountX = ${mountX};
     ${name}.mountY = ${mountY};
@@ -51,6 +51,18 @@ const generateTextBlock = ({ name, text, x, y, mountX = 1, mountY = 1 }) => {
 
   newAddChildIds.push(name);
   newElements.push(_tmp);
+}
+
+const generateImageBlock = ({ name, src, x = 0, y = 0, alpha = 1, w, h, mountX = 1, mountY = 1 }) => {
+  const _tmpImg = `
+    const ${name} = (this.${name} = new Lightning.Element(stage));
+    ${name}.on('txLoaded', () => console.log(${name}, ' loaded'));
+    ${name}.w = ${w};
+    ${name}.h = ${h};
+    ${name}.alpha = ${alpha};`;
+
+  newAddChildIds.push(name);
+  newElements.push(_tmpImg);
 }
 
 const insertElements = () => newElements.join('\n').trim();
@@ -106,11 +118,19 @@ const parseTemplate = () => {
   for(const elemName in templateObj) {
     const element = templateObj[elemName];
 
-    if(element.type == 'Text') {
-      generateTextBlock({
-        name: elemName,
-        ...element
-      });
+    const params = {
+      name: elemName,
+      ...element
+    }
+
+    switch(element.type) {
+      case 'Text':
+        generateTextBlock(params);
+        break;
+
+      case 'Image':
+        generateImageBlock(params);
+        break;
     }
   }
 

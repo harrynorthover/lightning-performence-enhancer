@@ -27,7 +27,13 @@ export default class App extends Lightning.Component {
   constructor(stage: Lightning.Stage) {
     super(stage);
 
-    const TextTexture = new TextTexture(stage);
+    const Logo = (this.Logo = new Lightning.Element(stage));
+    Logo.on('txLoaded', () => console.log(Logo, ' loaded'));
+    Logo.w = undefined;
+    Logo.h = undefined;
+    Logo.alpha = 1;
+
+    const TextTexture = (this.TextTexture = new TextTexture(stage));
     TextTexture.fontSize = FontFaceLightSize.P16;
     TextTexture.fontStyle = FontWeight.LIGHT;
     TextTexture.renderer = TextRenderer.Sensible;
@@ -35,14 +41,14 @@ export default class App extends Lightning.Component {
       text: "Let's start Building!"
     };
 
-    const Text = new Lightning.Element(stage);
+    const Text = (this.Text = new Lightning.Element(stage));
     Text.texture = TextTexture;
     Text.mountX = 1;
     Text.mountY = 1;
     Text.x = 960;
     Text.y = 720;
 
-    const AnotherTextTexture = new TextTexture(stage);
+    const AnotherTextTexture = (this.AnotherTextTexture = new TextTexture(stage));
     AnotherTextTexture.fontSize = FontFaceLightSize.P16;
     AnotherTextTexture.fontStyle = FontWeight.LIGHT;
     AnotherTextTexture.renderer = TextRenderer.Sensible;
@@ -50,13 +56,14 @@ export default class App extends Lightning.Component {
       text: "Let's start Building!"
     };
 
-    const AnotherText = new Lightning.Element(stage);
+    const AnotherText = (this.AnotherText = new Lightning.Element(stage));
     AnotherText.texture = AnotherTextTexture;
     AnotherText.mountX = 1;
     AnotherText.mountY = 1;
     AnotherText.x = 960;
     AnotherText.y = 720;
 
+    this.childList.add(Logo)
     this.childList.add(Text)
     this.childList.add(AnotherText)
   }
