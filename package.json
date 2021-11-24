@@ -1,0 +1,31 @@
+{
+  "name": "lightning-performence-enhancer",
+  "version": "1.0.0",
+  "description": "Translates Lightning templates to inline code.",
+  "main": "lng-temp-parser.js",
+  "scripts": {
+    "start": "node lng-temp-parser.js './LightningTemplateDemo/src/App.js' app.parsed.ts"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harrynorthover/lightning-performence-enhancer.git"
+  },
+  "keywords": [
+    "lightning",
+    "templates",
+    "es6",
+    "tv",
+    "webgl"
+  ],
+  "author": "Harry Northover",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harrynorthover/lightning-performence-enhancer/issues"
+  },
+  "homepage": "https://github.com/harrynorthover/lightning-performence-enhancer#readme",
+  "dependencies": {
+    "fs-extra": "^10.0.0",
+    "meow": "^10.1.2"
+  }
+}

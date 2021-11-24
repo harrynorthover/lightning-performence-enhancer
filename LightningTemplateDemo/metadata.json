@@ -1,0 +1,6 @@
+{
+  "name": "lightning-perf-enh-demo",
+  "identifier": "com.nrthpoint.lightning-performance-enhance",
+  "version": "1.0.0",
+  "icon": "./static/icon.png"
+}
