@@ -1,5 +1,5 @@
 {
-  "name": "lightning-performence-enhancer",
+  "name": "lightning-performance-enhancer",
   "version": "1.0.0",
   "description": "Translates Lightning templates to inline code.",
   "main": "src/main.js",
