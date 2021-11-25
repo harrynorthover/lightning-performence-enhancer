@@ -4,6 +4,7 @@ import { generateTextBlock } from './parsers/textBlock.js'
 import { generateImageBlock } from './parsers/imageBlock.js'
 
 const TEMPLATE_REGEX = /(static _template())([\s\S]+?)(\n  })/g;
+const CLASS_REGEX = /export default class (\w+) extends Lightning.Component {/g;
 const RETURN_BLK_REGEX = /(return {)([\s\S]+?)(\n    })/g;
 const STRING_SPACES_REGEX = /([a-zA-Z0-9])[ ]([a-zA-Z0-9])/g;
 const GLOBAL_SPACES_REGEX = /\s/g;
@@ -11,6 +12,7 @@ const REPLACE_QUOTES = ['Image', 'Text', 'Regular'];
 
 const newElements = [];
 const newAddChildIds = [];
+const newClassVariables = [];
 let newClass = [];
 
 const cli = meow(`
@@ -33,9 +35,16 @@ const cli = meow(`
 });
 
 const insertElements = () => newElements.join('\n').trim();
-const insertAddChild = () => newAddChildIds.map((elem, index) => index === 0 ? `this.childList.add(${elem})` : `    this.childList.add(${elem})` ).join('\n');
+const insertAddChild = () => newAddChildIds.map((elem, index) => index === 0 ? `this.childList.add(${elem});` : `    this.childList.add(${elem});` ).join('\n');
+const insertClassVariables = () => newClassVariables.map(({name, type}, index) => index === 0 ? `private ${name}: ${type};` : `    private ${name}: ${type};` ).join('\n');
 
 const generateLightningClass = (templateFile) => {
+  const _classVariables = `export default class $1 extends Lightning.Component {
+    ${insertClassVariables()}  
+  `
+
+  console.log('_classVariables: ', _classVariables);
+
   const _constructor = `constructor(stage: Lightning.Stage) {
     super(stage);
 
@@ -44,7 +53,8 @@ const generateLightningClass = (templateFile) => {
     ${insertAddChild()}
   }`;
 
-  newClass = templateFile.replace(TEMPLATE_REGEX, _constructor);
+  newClass = templateFile.replace( new RegExp(CLASS_REGEX, "g"), _classVariables);
+  newClass = newClass.replace(TEMPLATE_REGEX, _constructor);
 }
 const writeLightningClassToDisk = () => {
   try {
@@ -92,11 +102,11 @@ const parseTemplate = () => {
 
     switch(element.type) {
       case 'Text':
-        generateTextBlock(newElements, newAddChildIds, params);
+        generateTextBlock(newElements, newAddChildIds, newClassVariables, params);
         break;
 
       case 'Image':
-        generateImageBlock(newElements, newAddChildIds, params);
+        generateImageBlock(newElements, newAddChildIds, newClassVariables, params);
         break;
     }
   }

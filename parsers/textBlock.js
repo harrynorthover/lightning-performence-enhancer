@@ -1,4 +1,4 @@
-export const generateTextBlock = (newElements, newAddChildIds, { name, text, x, y, mountX = 1, mountY = 1 }) => {
+export const generateTextBlock = (newElements, newAddChildIds, newClassVariables, { name, text, x, y, mountX = 1, mountY = 1 }) => {
   const textureName = `${name}Texture`;
 
   const _tmp = `
@@ -16,7 +16,9 @@ export const generateTextBlock = (newElements, newAddChildIds, { name, text, x, 
     ${name}.mountY = ${mountY};
     ${name}.x = ${x};
     ${name}.y = ${y};`;
-
-  newAddChildIds.push(name);
-  newElements.push(_tmp);
+  
+    newClassVariables.push({name: textureName, type: 'TextTexture'});
+    newClassVariables.push({name, type: 'Lightning.Element'});
+    newAddChildIds.push(name);
+    newElements.push(_tmp);
 }
