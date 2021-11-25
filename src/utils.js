@@ -1,5 +1,13 @@
 import moduleImports from "../config/modules.js";
 
+export const ELEMENT_IDENTIFIER = "Element";
+
+export const generateElementConstructor = ({
+  name,
+  type = "Lightning.Element",
+  global = false,
+}) => (global ? `(this.${name} = new ${type}(stage))` : `new ${type}(stage)`);
+
 export const insertElements = (newElements) => newElements.join("\n").trim();
 
 export const insertAddChild = (newAddChildIds) =>
@@ -14,9 +22,7 @@ export const insertAddChild = (newAddChildIds) =>
 export const insertClassVariables = (newClassVariables) =>
   newClassVariables
     .map(({ name, type }, index) =>
-      index === 0
-        ? `private ${name}: ${type};`
-        : `    private ${name}: ${type};`
+      index === 0 ? `private ${name}: ${type};` : `  private ${name}: ${type};`
     )
     .join("\n");
 

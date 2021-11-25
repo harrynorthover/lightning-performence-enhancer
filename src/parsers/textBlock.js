@@ -1,25 +1,50 @@
-export const generateTextBlock = (newElements, newAddChildIds, newClassVariables, { name, text, x, y, mountX = 1, mountY = 1 }) => {
-  const elementName = `${name}Element`;
+import { ELEMENT_IDENTIFIER, generateElementConstructor } from "../utils.js";
+
+export const generateTextBlock = (
+  newElements,
+  childListElements,
+  classVariables,
+  {
+    name,
+    text: { text, fontSize, fontFace },
+    x = 0,
+    y = 0,
+    mountX = 1,
+    mountY = 1,
+    global = false,
+  }
+) => {
+  const elementName = `${name}${ELEMENT_IDENTIFIER}`;
   const textureName = `${elementName}Texture`;
 
+  if (global) {
+    classVariables.push({ name: textureName, type: "TextTexture" });
+    classVariables.push({ name: elementName, type: "Lightning.Element" });
+  }
+
   const _tmp = `
-    const ${textureName} = (this.${textureName} = new TextTexture(stage));
-    ${textureName}.fontSize = FontFaceLightSize.P16;
-    ${textureName}.fontStyle = FontWeight.LIGHT;
+    const ${textureName} = ${generateElementConstructor({
+    name: textureName,
+    type: "TextTexture",
+    global,
+  })};
+    ${textureName}.fontSize = ${fontSize};
+    ${textureName}.fontStyle = '${fontFace}';
     ${textureName}.renderer = TextRenderer.Sensible;
     ${textureName}.text = {
-      text: "${text.text}"
+      text: "${text}"
     };
 
-    const ${elementName} = (this.${elementName} = new Lightning.Element(stage));
+    const ${elementName} = ${generateElementConstructor({
+    name: elementName,
+    global,
+  })};
     ${elementName}.texture = ${elementName}Texture;
     ${elementName}.mountX = ${mountX};
     ${elementName}.mountY = ${mountY};
     ${elementName}.x = ${x};
     ${elementName}.y = ${y};`;
-  
-    newClassVariables.push({name: textureName, type: 'TextTexture'});
-    newClassVariables.push({name: elementName, type: 'Lightning.Element'});
-    newAddChildIds.push(elementName);
-    newElements.push(_tmp);
-}
+
+  childListElements.push(elementName);
+  newElements.push(_tmp);
+};

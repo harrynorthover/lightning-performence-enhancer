@@ -9,6 +9,8 @@ export default class App extends Lightning.Component {
     return {
       Logo: {
         type: 'Image',
+        global: true,
+        export: false,
         mountX: 0.5,
         mountY: 1,
         x: 960,
@@ -18,6 +20,7 @@ export default class App extends Lightning.Component {
       Text: {
         type: 'Text',
         mount: 0.5,
+        global: true,
         x: 960,
         y: 720,
         text: {
@@ -43,8 +46,22 @@ export default class App extends Lightning.Component {
   }
 
   _init() {
-    this.tag('Background')
-      .animation({
+    this._template()
+      .Text.animation({
+        duration: 15,
+        repeat: -1,
+        actions: [
+          {
+            t: '',
+            p: 'color',
+            v: { 0: { v: 0xfffbb03b }, 0.5: { v: 0xfff46730 }, 0.8: { v: 0xfffbb03b } },
+          },
+        ],
+      })
+      .start()
+
+    this._template()
+      .Logo.animation({
         duration: 15,
         repeat: -1,
         actions: [

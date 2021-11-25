@@ -2,9 +2,9 @@
   "name": "lightning-performence-enhancer",
   "version": "1.0.0",
   "description": "Translates Lightning templates to inline code.",
-  "main": "src/lng-temp-parser.js",
+  "main": "src/main.js",
   "scripts": {
-    "start": "node src/lng-temp-parser.js ./demo/src/App.js ./demo/src/App.parsed.ts",
+    "start": "node src/main.js ./demo/src/App.js ./demo/src/App.parsed.ts",
     "lint": "eslint --ext .js --fix"
   },
   "type": "module",

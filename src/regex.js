@@ -7,3 +7,4 @@ export const RETURN_BLK_REGEX = /(return {)([\s\S]+?)(\n    })/g;
 export const STRING_SPACES_REGEX = /([a-zA-Z0-9])[ ]([a-zA-Z0-9])/g;
 export const GLOBAL_SPACES_REGEX = /\s/g;
 export const REPLACE_QUOTES = ["Image", "Text", "Regular"];
+export const TEMPLATE_REFERENCE_REGEX = /_template\(\)\.([\w]+)\./g;
