@@ -1,11 +1,15 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
+import { TextTexture } from 'src/lightning/textures/TextTexture'
+import { TextRenderer } from 'src/lightning/textures/TextTexture'
+import { FontFaceLightSize } from 'src/desin/fonts'
+import { FontWeight } from 'src/desin/fonts'
 
 export default class App extends Lightning.Component {
     private Logo: Lightning.Element;
-    private TextTexture: TextTexture;
-    private Text: Lightning.Element;
-    private AnotherTextTexture: TextTexture;
-    private AnotherText: Lightning.Element;  
+    private TextElementTexture: TextTexture;
+    private TextElement: Lightning.Element;
+    private AnotherTextElementTexture: TextTexture;
+    private AnotherTextElement: Lightning.Element;  
   
   static getFonts() {
     return [{ family: 'Regular', url: Utils.asset('fonts/Roboto-Regular.ttf') }]
@@ -20,39 +24,39 @@ export default class App extends Lightning.Component {
     Logo.h = undefined;
     Logo.alpha = 1;
 
-    const TextTexture = (this.TextTexture = new TextTexture(stage));
-    TextTexture.fontSize = FontFaceLightSize.P16;
-    TextTexture.fontStyle = FontWeight.LIGHT;
-    TextTexture.renderer = TextRenderer.Sensible;
-    TextTexture.text = {
+    const TextElementTexture = (this.TextElementTexture = new TextTexture(stage));
+    TextElementTexture.fontSize = FontFaceLightSize.P16;
+    TextElementTexture.fontStyle = FontWeight.LIGHT;
+    TextElementTexture.renderer = TextRenderer.Sensible;
+    TextElementTexture.text = {
       text: "Let's start Building!"
     };
 
-    const Text = (this.Text = new Lightning.Element(stage));
-    Text.texture = TextTexture;
-    Text.mountX = 1;
-    Text.mountY = 1;
-    Text.x = 960;
-    Text.y = 720;
+    const TextElement = (this.TextElement = new Lightning.Element(stage));
+    TextElement.texture = TextElementTexture;
+    TextElement.mountX = 1;
+    TextElement.mountY = 1;
+    TextElement.x = 960;
+    TextElement.y = 720;
 
-    const AnotherTextTexture = (this.AnotherTextTexture = new TextTexture(stage));
-    AnotherTextTexture.fontSize = FontFaceLightSize.P16;
-    AnotherTextTexture.fontStyle = FontWeight.LIGHT;
-    AnotherTextTexture.renderer = TextRenderer.Sensible;
-    AnotherTextTexture.text = {
+    const AnotherTextElementTexture = (this.AnotherTextElementTexture = new TextTexture(stage));
+    AnotherTextElementTexture.fontSize = FontFaceLightSize.P16;
+    AnotherTextElementTexture.fontStyle = FontWeight.LIGHT;
+    AnotherTextElementTexture.renderer = TextRenderer.Sensible;
+    AnotherTextElementTexture.text = {
       text: "Let's start Building!"
     };
 
-    const AnotherText = (this.AnotherText = new Lightning.Element(stage));
-    AnotherText.texture = AnotherTextTexture;
-    AnotherText.mountX = 1;
-    AnotherText.mountY = 1;
-    AnotherText.x = 960;
-    AnotherText.y = 720;
+    const AnotherTextElement = (this.AnotherTextElement = new Lightning.Element(stage));
+    AnotherTextElement.texture = AnotherTextElementTexture;
+    AnotherTextElement.mountX = 1;
+    AnotherTextElement.mountY = 1;
+    AnotherTextElement.x = 960;
+    AnotherTextElement.y = 720;
 
-    this.childList.add(Logo);
-    this.childList.add(Text);
-    this.childList.add(AnotherText);
+    this.childList.add(this.Logo);
+    this.childList.add(TextElement);
+    this.childList.add(AnotherTextElement);
   }
 
   _init() {
