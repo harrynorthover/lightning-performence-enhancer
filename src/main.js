@@ -16,6 +16,7 @@ import {
   CLASS_REGEX,
   IMPORT_REGEX,
   TEMPLATE_REFERENCE_REGEX,
+  MULTILINE_TEMPLATE_REFERENCE_REGEX,
 } from "./regex.js";
 import { config, helpText } from "../config/cli.js";
 
@@ -116,7 +117,8 @@ ${insertImports(newElements)}`;
   newClass = templateFile.replace(IMPORT_REGEX, _importStatements);
   newClass = newClass.replace(new RegExp(CLASS_REGEX, "g"), _classVariables);
   newClass = newClass.replace(TEMPLATE_REGEX, _constructor);
-  newClass = newClass.replace(TEMPLATE_REFERENCE_REGEX, `$1Element.`);
+  newClass = newClass.replace( new RegExp(MULTILINE_TEMPLATE_REFERENCE_REGEX, 'g'), `$1Element.`);
+  // newClass = newClass.replace(TEMPLATE_REFERENCE_REGEX, `$1Element.`);
 
   eslint.lintText(newClass).then((result) => {
     newClass = result[0].source;

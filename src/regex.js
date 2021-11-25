@@ -8,3 +8,4 @@ export const STRING_SPACES_REGEX = /([a-zA-Z0-9])[ ]([a-zA-Z0-9])/g;
 export const GLOBAL_SPACES_REGEX = /\s/g;
 export const REPLACE_QUOTES = ["Image", "Text", "Regular"];
 export const TEMPLATE_REFERENCE_REGEX = /_template\(\)\.([\w]+)\./g;
+export const MULTILINE_TEMPLATE_REFERENCE_REGEX = /_template\(\)[\s\S]+\.([\w]+)\./g;
