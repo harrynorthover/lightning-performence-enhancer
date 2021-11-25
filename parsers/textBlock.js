@@ -1,5 +1,6 @@
 export const generateTextBlock = (newElements, newAddChildIds, newClassVariables, { name, text, x, y, mountX = 1, mountY = 1 }) => {
-  const textureName = `${name}Texture`;
+  const elementName = `${name}Element`;
+  const textureName = `${elementName}Texture`;
 
   const _tmp = `
     const ${textureName} = (this.${textureName} = new TextTexture(stage));
@@ -10,15 +11,15 @@ export const generateTextBlock = (newElements, newAddChildIds, newClassVariables
       text: "${text.text}"
     };
 
-    const ${name} = (this.${name} = new Lightning.Element(stage));
-    ${name}.texture = ${name}Texture;
-    ${name}.mountX = ${mountX};
-    ${name}.mountY = ${mountY};
-    ${name}.x = ${x};
-    ${name}.y = ${y};`;
+    const ${elementName} = (this.${elementName} = new Lightning.Element(stage));
+    ${elementName}.texture = ${elementName}Texture;
+    ${elementName}.mountX = ${mountX};
+    ${elementName}.mountY = ${mountY};
+    ${elementName}.x = ${x};
+    ${elementName}.y = ${y};`;
   
     newClassVariables.push({name: textureName, type: 'TextTexture'});
-    newClassVariables.push({name, type: 'Lightning.Element'});
-    newAddChildIds.push(name);
+    newClassVariables.push({name: elementName, type: 'Lightning.Element'});
+    newAddChildIds.push(elementName);
     newElements.push(_tmp);
 }
