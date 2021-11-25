@@ -54,7 +54,7 @@ export default class App extends Lightning.Component {
     AnotherTextElement.x = 960;
     AnotherTextElement.y = 720;
 
-    this.childList.add(this.Logo);
+    this.childList.add(Logo);
     this.childList.add(TextElement);
     this.childList.add(AnotherTextElement);
   }

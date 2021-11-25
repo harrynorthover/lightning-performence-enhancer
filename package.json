@@ -2,15 +2,13 @@
   "name": "lightning-performence-enhancer",
   "version": "1.0.0",
   "description": "Translates Lightning templates to inline code.",
-  "main": "lng-temp-parser.js",
+  "main": "src/lng-temp-parser.js",
   "scripts": {
-    "start": "node lng-temp-parser.js ./LightningTemplateDemo/src/App.js ./LightningTemplateDemo/src/App.parsed.ts"
+    "start": "node src/lng-temp-parser.js ./demo/src/App.js ./demo/src/App.parsed.ts",
+    "lint": "eslint --ext .js --fix"
   },
   "type": "module",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/harrynorthover/lightning-performence-enhancer.git"
-  },
+  "repository": "git+https://github.com/harrynorthover/lightning-performence-enhancer.git",
   "keywords": [
     "lightning",
     "templates",
@@ -27,5 +25,17 @@
   "dependencies": {
     "fs-extra": "^10.0.0",
     "meow": "^10.1.2"
+  },
+  "private": false,
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
+    "@typescript-eslint/typescript-estree": "^5.4.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.1",
+    "typescript": "^4.5.2"
   }
 }
