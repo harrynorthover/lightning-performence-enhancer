@@ -15,7 +15,7 @@ export default class App extends Lightning.Component {
         mountY: 1,
         x: 960,
         y: 600,
-        src: Utils.asset('images/logo.png'),
+        src: "Utils.asset('images/logo.png')",
       },
       Text: {
         type: 'Text',

@@ -4,7 +4,8 @@
   "description": "Translates Lightning templates to inline code.",
   "main": "src/main.js",
   "scripts": {
-    "start": "node src/main.js ./demo/src/App.js ./demo/src/App.parsed.ts",
+    "generate:use:std": "node src/main.js demo/src/App.js demo/src/App.parsed.ts",
+    "generate:use:lightning": "node src/main.parser.lightning.js demo/src/App.js demo/src/App.parsed.lightning.ts",
     "lint": "eslint --ext .js --fix"
   },
   "type": "module",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/harrynorthover/lightning-performence-enhancer#readme",
   "dependencies": {
+    "@lightningjs/sdk": "^4.7.0",
     "fs-extra": "^10.0.0",
     "meow": "^10.1.2"
   },
