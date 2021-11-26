@@ -4,8 +4,7 @@
   "description": "Translates Lightning templates to inline code.",
   "main": "src/main.js",
   "scripts": {
-    "generate:use:std": "node src/main.js demo/src/App.js demo/src/App.parsed.ts",
-    "generate:use:lightning": "node src/main.parser.lightning.js demo/src/App.js demo/src/App.parsed.lightning.ts",
+    "start": "node src/main.js demo/src/App.js demo/src/App.parsed.ts",
     "lint": "eslint --ext .js --fix"
   },
   "type": "module",
