@@ -51,7 +51,7 @@ ${insertImports(newElements)}`;
   newClass = newClass.replace(TEMPLATE_REGEX, _constructor);
 
   /* Needs to be multiline based on linting rules currently set in the demo project */
-  newClass = newClass.replace( new RegExp(MULTILINE_TEMPLATE_REFERENCE_REGEX, 'g'), `$1Element.`);
+  newClass = newClass.replace( new RegExp(MULTILINE_TEMPLATE_REFERENCE_REGEX, 'g'), `.$1Element.`);
 
   eslint.lintText(newClass).then((result) => {
     newClass = result[0].source;
