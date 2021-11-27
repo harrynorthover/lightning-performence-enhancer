@@ -1,8 +1,8 @@
-import { parse } from "@typescript-eslint/parser";
-import { EXPORT_DEFAULT_DECLARATION, TEMPLATE_FUNC_IDENTIFIER, METHOD_DEFINITION, OBJECT_EXPRESSION, LITERAL_OBJECT, CALL_EXPRESSION } from './consts.js';
+import { parse } from '@typescript-eslint/parser'
+import { EXPORT_DEFAULT_DECLARATION, TEMPLATE_FUNC_IDENTIFIER, METHOD_DEFINITION, OBJECT_EXPRESSION, LITERAL_OBJECT, CALL_EXPRESSION } from './consts.js'
 
 export const generateAST = (codeFile) => {
-  const { body } = parse(codeFile);
+  const { body } = parse(codeFile)
 
   // const imports = body.filter((obj) => obj.type === "ImportDeclaration")[0];
 
@@ -10,31 +10,31 @@ export const generateAST = (codeFile) => {
     .filter((obj) => obj.type === EXPORT_DEFAULT_DECLARATION)[0]
     .declaration.body.body.filter(
       (bodyElem) => (bodyElem.type = METHOD_DEFINITION)
-    );
+    )
 
-  const _templateFunc = functions.find((func) => func.key.name === TEMPLATE_FUNC_IDENTIFIER);
+  const _templateFunc = functions.find((func) => func.key.name === TEMPLATE_FUNC_IDENTIFIER)
   const _templateElements =
     _templateFunc.value.body.body[0].argument.properties.map((prop) => {
       const _tmpProp = Object.fromEntries(
         new Map(prop.value.properties.map((p) => parseObject(p)))
-      );
+      )
 
       return {
         name: prop.key.name,
-        ..._tmpProp,
-      };
-    });
+        ..._tmpProp
+      }
+    })
 
-  return _templateElements;
-};
+  return _templateElements
+}
 
 const parseObject = (oE) => {
   if (oE.value.type === LITERAL_OBJECT) {
-    return [oE.key.name, oE.value.value];
+    return [oE.key.name, oE.value.value]
   }
 
   if (oE.value.type === CALL_EXPRESSION) {
-    return parseCallExpression(oE);
+    return parseCallExpression(oE)
   }
 
   if (oE.value.type === OBJECT_EXPRESSION) {
@@ -42,18 +42,18 @@ const parseObject = (oE) => {
       oE.key.name,
       Object.fromEntries(
         oE.value.properties.map((prop) => [prop.key.name, prop.value.value])
-      ),
-    ];
+      )
+    ]
   }
-};
+}
 
 const parseCallExpression = (cE) => {
-  const _func = `${cE.value.callee.object.name}.${cE.value.callee.property.name}`;
+  const _func = `${cE.value.callee.object.name}.${cE.value.callee.property.name}`
   const _args = cE.value.arguments
     .map((arg) => {
-      return arg.raw;
+      return arg.raw
     })
-    .join(", ");
+    .join(', ')
 
-  return [cE.key.name, `${_func}(${_args})`];
-};
+  return [cE.key.name, `${_func}(${_args})`]
+}

@@ -5,7 +5,8 @@
   "main": "src/main.js",
   "scripts": {
     "start": "node src/main.js demo/src/App.js demo/src/App.parsed.ts",
-    "lint": "eslint --ext .js --fix"
+    "lint": "eslint . --ext .js, .ts --fix",
+    "prepare": "husky install"
   },
   "type": "module",
   "repository": "git+https://github.com/harrynorthover/lightning-performence-enhancer.git",
@@ -25,6 +26,7 @@
   "dependencies": {
     "@lightningjs/sdk": "^4.7.0",
     "fs-extra": "^10.0.0",
+    "husky": "^7.0.4",
     "meow": "^10.1.2"
   },
   "private": false,

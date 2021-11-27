@@ -136,6 +136,19 @@ export default class App extends Lightning.Component {
   }
 
   _init() {
+    this.TextElement.animation({
+        duration: 15,
+        repeat: -1,
+        actions: [
+          {
+            t: '',
+            p: 'color',
+            v: { 0: { v: 0xfffbb03b }, 0.5: { v: 0xfff46730 }, 0.8: { v: 0xfffbb03b } },
+          },
+        ],
+      })
+      .start()
+
     this.LogoElement.animation({
         duration: 15,
         repeat: -1,
