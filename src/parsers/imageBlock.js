@@ -1,4 +1,4 @@
-import { ELEMENT_IDENTIFIER, generateElementConstructor } from "../utils.js";
+import { ELEMENT_IDENTIFIER, generateElementConstructor } from '../utils.js'
 
 export const generateImageBlock = (
   elementCode,
@@ -14,19 +14,19 @@ export const generateImageBlock = (
     h,
     mountX = 1,
     mountY = 1,
-    global = false,
+    global = false
   }
 ) => {
-  const elementName = `${name}${ELEMENT_IDENTIFIER}`;
+  const elementName = `${name}${ELEMENT_IDENTIFIER}`
 
   if (global) {
-    classVariables.push({ name: elementName, type: "Lightning.Element" });
+    classVariables.push({ name: elementName, type: 'Lightning.Element' })
   }
 
   const _tmpImg = `
     const ${elementName} = ${generateElementConstructor({
     name: elementName,
-    global,
+    global
   })}
     ${elementName}.on('txLoaded', () => console.log(${elementName}, ' loaded'));
     ${elementName}.src = ${src};
@@ -34,8 +34,8 @@ export const generateImageBlock = (
     ${elementName}.y = ${y};
     ${elementName}.w = ${w};
     ${elementName}.h = ${h};
-    ${elementName}.alpha = ${alpha};`;
+    ${elementName}.alpha = ${alpha};`
 
-  childListElements.push(elementName);
-  elementCode.push(_tmpImg);
-};
+  childListElements.push(elementName)
+  elementCode.push(_tmpImg)
+}

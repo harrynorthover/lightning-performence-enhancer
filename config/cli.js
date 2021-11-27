@@ -1,20 +1,20 @@
 export const helpText = `
-	Usage
-	  $ node lng-temp-parser <input>
+  Usage
+    $ node lng-temp-parser <input>
 
-	Options
-	  none
+  Options
+    none
 
-	Examples
-	  $ node lng-temp-parser './LightningTemplateDemo/src/App.js ./LightningTemplateDemo/src/App.parsed.ts'
-`;
+  Examples
+    $ node lng-temp-parser './LightningTemplateDemo/src/App.js ./LightningTemplateDemo/src/App.parsed.ts'
+`
 
 export const config = {
   importMeta: import.meta,
   flags: {
     rainbow: {
-      type: "boolean",
-      alias: "r",
-    },
-  },
-};
+      type: 'boolean',
+      alias: 'r'
+    }
+  }
+}

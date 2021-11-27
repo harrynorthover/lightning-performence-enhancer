@@ -1,29 +1,29 @@
-import { generateTextBlock } from "./textBlock.js";
-import { generateImageBlock } from "./imageBlock.js";
+import { generateTextBlock } from './textBlock.js'
+import { generateImageBlock } from './imageBlock.js'
 
 export const parseElement = ({
   element,
   newElements,
   newAddChildIds,
-  newClassVariables,
+  newClassVariables
 }) => {
   switch (element.type) {
-    case "Text":
+    case 'Text':
       generateTextBlock(
         newElements,
         newAddChildIds,
         newClassVariables,
         element
-      );
-      break;
+      )
+      break
 
-    case "Image":
+    case 'Image':
       generateImageBlock(
         newElements,
         newAddChildIds,
         newClassVariables,
         element
-      );
-      break;
+      )
+      break
   }
-};
+}
